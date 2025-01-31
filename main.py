@@ -45,12 +45,22 @@ class Layer_Dense:
 
 X,y = spiral_data(samples=100, classes=3)
 
-dense1 = Layer_Dense(2,3)
+dense1 = Layer_Dense(2,3) # 2 inputs, 3 neurons
 
 activation1 = Activation_ReLU()
+
+dense2 = Layer_Dense(3,3) # 3 neurons, 3 outputs
+
+activation2 = Activation_Softmax()
+
+loss_function = Loss_CategoricalCrossEntropy()
 
 dense1.forward(X)
 
 activation1.forward(dense1.output)
 
-print(activation1.output[:5])
+dense2.forward(activation1.output)
+
+activation2.forward(dense2.output)
+
+loss = loss_function.calculate(activation2.output, y)
